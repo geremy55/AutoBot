@@ -22,14 +22,14 @@
 
         <Button x:Name="LoginBtn" Grid.Column="1" Grid.Row="0" 
                          Style="{StaticResource ButtonTemplate}" VerticalAlignment="Bottom" 
-                Content="Авторизация" Click="Login_Click" />
+                Content="Авторизация" Command="{Binding LoginCommand}" />
 
         <Label  x:Name="AcName" HorizontalAlignment="Left" FontSize="15"  
                 VerticalAlignment="Bottom" TextBlock.Foreground="Gainsboro" Grid.Column="1" Grid.Row="1"/>
 
         <ComboBox x:Name="CurencyList" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Stretch"
                   VerticalAlignment="Bottom"  SelectedIndex="0" 
-                  SelectionChanged="CurencyList_SelectionChanged" Height="26"  Margin="30,0,0,0"
+                   Height="26"  Margin="30,0,0,0" SelectedItem="{Binding Currency, UpdateSourceTrigger=PropertyChanged}"
                   ItemsSource="{StaticResource Currency}" />
 
         <StackPanel Grid.Column="3" Grid.Row="0" Grid.RowSpan="3">
