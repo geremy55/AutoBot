@@ -1,0 +1,39 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:AutoBot.Resources">
+    <x:Array x:Key="Currency" Type="system:String">
+        <system:String>BTC</system:String>
+        <system:String>Doge</system:String>
+        <system:String>LTC</system:String>
+        <system:String>ETH</system:String>
+    </x:Array>
+    <x:Array x:Key="BetType" Type="system:String">
+        <system:String>Одиночные</system:String>
+        <system:String>Автоматизированные</system:String>
+    </x:Array>
+    <x:Array x:Key="TypeMM" Type="system:String">
+        <system:String>С увеличением баланса</system:String>
+        <system:String>С восстановлением баланса</system:String>
+        <system:String>Автономные ставки</system:String>
+    </x:Array>
+    <x:Array x:Key="Sait" Type="system:String">
+        <system:String>www.999dice.com</system:String>
+        <system:String>www.999proxy.com</system:String>
+        <system:String>ru.999dice.com</system:String>
+        <system:String>super999.ddns.net:999</system:String>
+        <system:String>ru.www.999-dice.com</system:String>
+        <system:String>www.999doge.com</system:String>
+    </x:Array>
+    <x:Array x:Key="Strata" Type="system:String">
+        <system:String>5% single</system:String>
+        <system:String>15% single</system:String>
+        <system:String>21% single</system:String>
+        <system:String>50% single</system:String>
+        <system:String>5% mutiple</system:String>
+        <system:String>15% mutiple</system:String>
+        <system:String>21% mutiple</system:String>
+        <system:String>50% mutiple</system:String>
+        <system:String>custom single</system:String>
+        <system:String>custom mutiple</system:String>
+    </x:Array>
+</ResourceDictionary>

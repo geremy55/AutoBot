@@ -4,6 +4,16 @@
              xmlns:local="clr-namespace:AutoBot"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/ButtonDictionary.xaml" />
+                <ResourceDictionary Source="/Resources/ComboDictionary.xaml" />
+                <ResourceDictionary Source="/Resources/ListDictionary.xaml" />
+                <!--<ResourceDictionary Source="/Resources/TextBoxDictionary.xaml" />
+                <ResourceDictionary Source="/Resources/WindowDictionary.xaml" />
+                <ResourceDictionary Source="/Resources/ErrorDictionary.xaml" />
+                <ResourceDictionary Source="/Resources/DataGridDictionary.xaml" />-->
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
