@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dice.Client.Web">
+      <HintPath>C:\Users\Yuri\Documents\Visual Studio 2017\Projects\DiceAutoBot\DiceAutoBot\Dice.Client.Web.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -55,7 +58,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Forms\MainWindow.xaml">
+    <Compile Include="Helpers\LoginDialog.cs" />
+    <Compile Include="Helpers\NewAccountDialog.cs" />
+    <Compile Include="Helpers\RelayCommand.cs" />
+    <Compile Include="Helpers\SettingsDialog.cs" />
+    <Compile Include="Interfaces\ILoginDialog.cs" />
+    <Compile Include="Interfaces\ILoginService.cs" />
+    <Compile Include="Interfaces\ISettingsDiallog.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\NewAccountModel.cs" />
+    <Compile Include="Models\ResultLoginModel.cs" />
+    <Compile Include="Models\SettingsModel.cs" />
+    <Compile Include="Models\WorkAccountModel.cs" />
+    <Compile Include="Services\LoginService.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\NewAccountViewModel.cs" />
+    <Compile Include="ViewModels\PassViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Page Include="Views\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -63,15 +83,29 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Forms\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\WorkAccountViewModel.cs" />
+    <Compile Include="Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Forms\UserView.xaml">
+    <Page Include="Views\NewAccountView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\WorkAccountsView.xaml">
+    <Page Include="Views\PassView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WorkAcountsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -105,12 +139,22 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\UserView.xaml.cs">
+    <Compile Include="Views\NewAccountView.xaml.cs">
+      <DependentUpon>NewAccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PassView.xaml.cs">
+      <DependentUpon>PassView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserView.xaml.cs">
       <DependentUpon>UserView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\WorkAccountsView.xaml.cs">
-      <DependentUpon>WorkAccountsView.xaml</DependentUpon>
+    <Compile Include="Views\WorkAcountsView.xaml.cs">
+      <DependentUpon>WorkAcountsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\MainModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -135,6 +179,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\bitcoin_77975.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

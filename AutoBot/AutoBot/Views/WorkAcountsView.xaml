@@ -1,12 +1,12 @@
-﻿<UserControl x:Class="AutoBot.Forms.WorkAccountsView"
+﻿<UserControl x:Class="AutoBot.Views.WorkAcountsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:AutoBot.Forms"
+             xmlns:local="clr-namespace:AutoBot.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid x:Name="Players" IsEnabled="False">
+    <Grid x:Name="workAccountGrid" IsEnabled="true">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
             <ColumnDefinition />
@@ -38,8 +38,8 @@
 
         <DataGrid x:Name="UsersGrid" AutoGenerateColumns="False" Grid.Column="1" Grid.ColumnSpan="3"
                           Grid.Row="3" Grid.RowSpan="3" CanUserAddRows="False"
-                          ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}" IsReadOnly="True"
-                          HeadersVisibility="Column"
+                          ItemsSource="{Binding Model}" SelectedItem="{Binding SelectedModel, Mode=Default}" IsReadOnly="True"
+                          HeadersVisibility="Column" CanUserResizeColumns="True"
                           >
             <DataGrid.Columns>
 
@@ -70,8 +70,6 @@
                 <DataGridTextColumn Binding="{Binding Path=BetNumber}" MinWidth="50" Header="Ставка"/>
                 <DataGridTextColumn Binding="{Binding Path=PositiveNuberMax}" MinWidth="30" Header="Макс +"/>
                 <DataGridTextColumn Binding="{Binding Path=NegativeNuberMax}" MinWidth="30" Header="Макс -"/>
-
-
 
             </DataGrid.Columns>
         </DataGrid>

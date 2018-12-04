@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoBot.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AutoBot.Forms
+namespace AutoBot.Views
 {
     /// <summary>
     /// Interaction logic for UserView.xaml
@@ -22,7 +23,7 @@ namespace AutoBot.Forms
     {
         public UserView()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
     }
 }

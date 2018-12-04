@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AutoBot.Forms
+namespace AutoBot.Views
 {
     /// <summary>
-    /// Interaction logic for WorkAccountsView.xaml
+    /// Interaction logic for WorkAcountsView.xaml
     /// </summary>
-    public partial class WorkAccountsView : UserControl
+    public partial class WorkAcountsView : UserControl
     {
-        public WorkAccountsView()
+        public WorkAcountsView()
         {
             InitializeComponent();
         }
