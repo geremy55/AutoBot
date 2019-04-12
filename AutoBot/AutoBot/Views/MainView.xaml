@@ -65,7 +65,7 @@
                 BorderThickness="1" BorderBrush="DarkGray" Margin="5,5,5,5" CornerRadius="10" 
                 VerticalAlignment="Stretch">            
                 <local2:UserView 
-                 x:Name="UserGrid"  
+                 x:Name="userGrid"  
                     />                      
 
         </Border>

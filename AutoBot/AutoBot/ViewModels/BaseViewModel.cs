@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace AutoBot.ViewModels
 {
+    [Serializable]
     public abstract class BaseViewModel : INotifyPropertyChanged
     {
         [field: NonSerialized]

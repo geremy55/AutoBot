@@ -1,20 +1,20 @@
-﻿using AutoBot.Helpers;
+﻿using AutoBot.Dialogs;
+using AutoBot.Dialogs.LoginDialog;
+using AutoBot.Helpers;
 using AutoBot.Interfaces;
 using AutoBot.Models;
+using AutoBot.Services;
 using Dice.Client.Web;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 
 namespace AutoBot.ViewModels
 {
     public class MainViewModel : BaseViewModel
-    {
-        private SessionInfo _session;
-        private ILoginDialog _loginDialog;
-        ISettingsDiallog _settingsDiallog;
+    {        
+        private readonly IBaseDialogService<ResultLoginModel> _loginDialogService;
+        private readonly IBaseDialogService<ProgrammSettingsModel> _settingsDiallogService;
+        private ProgrammSettingsModel _settingsModel;
+
         private MainModel model;
         public MainModel Model
         {
@@ -25,27 +25,17 @@ namespace AutoBot.ViewModels
                 OnPropertyChanged("Model");
             }
         }
-
-        private Currencies selectedCurrency = Currencies.BTC;
-        public Currencies SelectedCurrency
-        {
-            get => selectedCurrency;
-            set
-            {
-                selectedCurrency = value;
-                Model.InitModel(_session, selectedCurrency);
-                OnPropertyChanged("SelectedCurrency");
-            }
-        }
-
-        public MainViewModel(MainModel _model, ILoginDialog loginDialog, ISettingsDiallog settingsDiallog)
+        
+        public MainViewModel(MainModel _model, IBaseDialogService<ResultLoginModel> loginDialogService, 
+            IBaseDialogService<ProgrammSettingsModel> settingsDiallogService)
         {
             if(_model!=null)
             {
                 Model = _model;
             }
-            _loginDialog = loginDialog;
-            _settingsDiallog = settingsDiallog;
+            _settingsModel = new ProgrammSettingsModel();
+            _loginDialogService = loginDialogService;
+            _settingsDiallogService = settingsDiallogService;                        
         }
 
         private RelayCommand loginCommand;
@@ -56,10 +46,20 @@ namespace AutoBot.ViewModels
                 return loginCommand ??
                   (loginCommand = new RelayCommand(obj =>
                   {
-                      _loginDialog.Login();
+                      if (_loginDialogService.ShowDialog(null, "Авторизация"))
+                      {
+                          var e = _loginDialogService.ReturnedModel;
+                          if (e.Session == null)
+                          {
+                              MessageBox.Show(e.ErrorResult);
+                              return;
+                          }
+                          Model.Session = e.Session;
+                          _settingsModel.WithdrawAdress = e.Session.AccountId.ToString();
+                      }
                   }));
             }
-        }
+        }        
 
         private RelayCommand settingsCommand;
         public RelayCommand SettingsCommand
@@ -68,10 +68,14 @@ namespace AutoBot.ViewModels
             {
                 return settingsCommand ??
                   (settingsCommand = new RelayCommand(obj =>
-                  {
-                      _settingsDiallog.Start();
+                  {  
+                      if (_settingsDiallogService.ShowDialog(_settingsModel, "Настройки"))
+                      {
+                          _settingsModel = _settingsDiallogService.ReturnedModel;
+                      }
                   }));
             }
-        }
+        }        
+        
     }
 }

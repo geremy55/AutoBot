@@ -27,7 +27,7 @@
 
         <Label  x:Name="accountName" HorizontalAlignment="Left" FontSize="15"  
                 VerticalAlignment="Center" TextBlock.Foreground="Gainsboro" Grid.Column="1" Grid.Row="1"
-                Content="{Binding Path = Model.AccountName}"/>
+                Content="{Binding Path = Model.AccountName, Mode=OneWay}"/>
         
         <Button x:Name="SettingsBtn" Grid.Column="1" Grid.Row="2" 
                          Style="{StaticResource ButtonTemplate}" VerticalAlignment="Top" 
@@ -36,7 +36,7 @@
         <ComboBox x:Name="CurencyList" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Stretch"
                   VerticalAlignment="Bottom"  SelectedIndex="0" 
                   Height="26"  Margin="30,0,0,0" 
-                  SelectedItem="{Binding Path = SelectedCurrency, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path = Model.Currency, UpdateSourceTrigger=PropertyChanged}"
                   ItemsSource="{StaticResource Currency}" />
 
         <StackPanel Grid.Column="3" Grid.Row="0" Grid.RowSpan="3">
@@ -60,19 +60,19 @@
 
         <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="3" Margin="5,5,0,0" >
             <TextBlock Name="label_Balance" Foreground="Gainsboro" 
-                       HorizontalAlignment="Stretch" FontSize="12" Text="{Binding Path = Model.Balance}" Height="22"/>
+                       HorizontalAlignment="Stretch" FontSize="12" Text="{Binding Path = Model.Balance, Mode=OneWay}" Height="22"/>
 
             <TextBlock Name="label_BetCount" Foreground="Gainsboro"
-                       HorizontalAlignment="Stretch" FontSize="12" Text="{Binding Path = Model.BetCount}" Height="22"/>
+                       HorizontalAlignment="Stretch" FontSize="12" Text="{Binding Path = Model.BetCount, UpdateSourceTrigger=PropertyChanged}" Height="22"/>
 
             <TextBlock Name="label_BetProfits" Foreground="Gainsboro"
-                       HorizontalAlignment="Stretch" FontSize="12" Text="{Binding Path = Model.BetProfits}" Height="22" VerticalAlignment="Top"/>
+                       HorizontalAlignment="Stretch" FontSize="12" Text="{Binding Path = Model.BetProfits, UpdateSourceTrigger=PropertyChanged }" Height="22" VerticalAlignment="Top"/>
 
             <TextBlock Name="label_BetWins" Foreground="Gainsboro"
-                       HorizontalAlignment="Stretch" FontSize="12" Text="{Binding Path = Model.BetWins}" Height="22" VerticalAlignment="Bottom"/>
+                       HorizontalAlignment="Stretch" FontSize="12" Text="{Binding Path = Model.BetWins, UpdateSourceTrigger=PropertyChanged}" Height="22" VerticalAlignment="Bottom"/>
 
             <TextBlock Name="label_BetWinsPercent" Foreground="Gainsboro"
-                       HorizontalAlignment="Stretch" FontSize="12" Text="{Binding Path = Model.BetWinsPercent}" Height="22" VerticalAlignment="Top"/>
+                       HorizontalAlignment="Stretch" FontSize="12" Text="{Binding Path = Model.BetWinsPercent, UpdateSourceTrigger=PropertyChanged}" Height="22" VerticalAlignment="Top"/>
         </StackPanel>
     </Grid>
 </UserControl>

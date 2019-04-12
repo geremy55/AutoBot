@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace AutoBot.Interfaces
 {
-    public interface ILoginService
+    public interface ILoginService<T, R>
     {
-        event EventHandler<ResultLoginModel> OnLogin;
-        void Login();
+        event EventHandler<T> OnLogin;        
+        void Start(R model);
     }
 }

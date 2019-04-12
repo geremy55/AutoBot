@@ -38,8 +38,12 @@
     <Reference Include="Dice.Client.Web">
       <HintPath>C:\Users\Yuri\Documents\Visual Studio 2017\Projects\DiceAutoBot\DiceAutoBot\Dice.Client.Web.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -58,23 +62,77 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Helpers\LoginDialog.cs" />
-    <Compile Include="Helpers\NewAccountDialog.cs" />
+    <Compile Include="Betting\Data\BaseBetData.cs" />
+    <Compile Include="Betting\Data\BetResultData.cs" />
+    <Compile Include="Betting\Data\InitialBetData.cs" />
+    <Compile Include="Betting\Data\InitialData.cs" />
+    <Compile Include="Betting\Data\MultipleBetData.cs" />
+    <Compile Include="Betting\Data\SingleBetData.cs" />
+    <Compile Include="Betting\Interfaces\ISingleBetting.cs" />
+    <Compile Include="Betting\Services\SingleBettingService.cs" />
+    <Compile Include="Controllers\BackgroundBettingController.cs" />
+    <Compile Include="Controllers\BaseBackground.cs" />
+    <Compile Include="Controllers\WorkAccountController.cs" />
+    <Compile Include="Converters\BetTypeConverter.cs" />
+    <Compile Include="Converters\TypeMMConverter.cs" />
+    <Compile Include="Dialogs\DialogMVVM\DialogModel.cs" />
+    <Compile Include="Dialogs\DialogMVVM\DialogView.xaml.cs">
+      <DependentUpon>DialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DialogMVVM\DialogViewModel.cs" />
+    <Compile Include="Dialogs\Interfaces\IDialogEvent.cs" />
+    <Compile Include="Dialogs\DialogMVVM\UserControlView.xaml.cs">
+      <DependentUpon>UserControlView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Interfaces\IBaseDialogService.cs" />
+    <Compile Include="Dialogs\DialogMVVM\MyDialogService.cs" />
+    <Compile Include="Dialogs\LoginDialog\LoginDialogService.cs" />
+    <Compile Include="Dialogs\NewAccountDialog\NewAccountDialogService.cs" />
+    <Compile Include="Dialogs\SettingsDialog\SettingsDialogService.cs" />
+    <Compile Include="Dialogs\StrategyDialog\StrategyDialogService.cs" />
+    <Compile Include="Enums\BetTypeEnum.cs" />
+    <Compile Include="Converters\CurrencyConverter.cs" />
+    <Compile Include="Enums\MoneyManagerEnum.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
-    <Compile Include="Helpers\SettingsDialog.cs" />
-    <Compile Include="Interfaces\ILoginDialog.cs" />
+    <Compile Include="Helpers\SendSettingsContainer.cs" />
+    <Compile Include="Interfaces\IBaseBackground.cs" />
+    <Compile Include="Interfaces\ICreateThreadForPlayer.cs" />
+    <Compile Include="Interfaces\IDialogService.cs" />
+    <Compile Include="Interfaces\IFileService.cs" />
+    <Compile Include="Interfaces\IGetAccountDataService.cs" />
     <Compile Include="Interfaces\ILoginService.cs" />
-    <Compile Include="Interfaces\ISettingsDiallog.cs" />
+    <Compile Include="Interfaces\IMainModel.cs" />
+    <Compile Include="Interfaces\IPlayerSettingsVM.cs" />
+    <Compile Include="Interfaces\ISendSettings.cs" />
+    <Compile Include="Interfaces\IWorkAccountController.cs" />
+    <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\NewAccountModel.cs" />
+    <Compile Include="Models\PlayerSettingsModel.cs" />
     <Compile Include="Models\ResultLoginModel.cs" />
-    <Compile Include="Models\SettingsModel.cs" />
+    <Compile Include="Models\ProgrammSettingsModel.cs" />
     <Compile Include="Models\WorkAccountModel.cs" />
+    <Compile Include="Services\BinaryAbstractService.cs" />
+    <Compile Include="Services\BinarySerializePrgSet.cs" />
+    <Compile Include="Services\BinarySerializeUserSet.cs" />
+    <Compile Include="Services\CreateNewAccountService.cs" />
+    <Compile Include="Services\CreateThreadForPlayerService.cs" />
+    <Compile Include="Services\FileDialogService.cs" />
+    <Compile Include="Services\GetAccountDataService.cs" />
+    <Compile Include="Services\JsonFileService.cs" />
     <Compile Include="Services\LoginService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\NewAccountViewModel.cs" />
-    <Compile Include="ViewModels\PassViewModel.cs" />
+    <Compile Include="Dialogs\NewAccountDialog\NewAccountViewModel.cs" />
+    <Compile Include="Dialogs\LoginDialog\PassViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Page Include="Dialogs\DialogMVVM\DialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\DialogMVVM\UserControlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -83,21 +141,27 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\PlayerResultPanelViewModel.cs" />
+    <Compile Include="Dialogs\StrategyDialog\PlayerSettingsViewModel.cs" />
+    <Compile Include="Dialogs\SettingsDialog\SettingsViewModel.cs" />
     <Compile Include="ViewModels\WorkAccountViewModel.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\NewAccountView.xaml">
+    <Page Include="Dialogs\NewAccountDialog\NewAccountView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\PassView.xaml">
+    <Page Include="Dialogs\LoginDialog\PassView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SettingsView.xaml">
+    <Page Include="Dialogs\StrategyDialog\PlayerSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\SettingsDialog\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -139,13 +203,16 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Views\NewAccountView.xaml.cs">
+    <Compile Include="Dialogs\NewAccountDialog\NewAccountView.xaml.cs">
       <DependentUpon>NewAccountView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PassView.xaml.cs">
+    <Compile Include="Dialogs\LoginDialog\PassView.xaml.cs">
       <DependentUpon>PassView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SettingsView.xaml.cs">
+    <Compile Include="Dialogs\StrategyDialog\PlayerSettingsView.xaml.cs">
+      <DependentUpon>PlayerSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SettingsDialog\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserView.xaml.cs">
@@ -172,6 +239,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -183,5 +252,6 @@
   <ItemGroup>
     <Resource Include="Resources\bitcoin_77975.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

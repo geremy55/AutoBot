@@ -1,37 +1,123 @@
-﻿using Dice.Client.Web;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoBot.Interfaces;
+using AutoBot.ViewModels;
+using Dice.Client.Web;
 
 namespace AutoBot.Models
 {
-    public class MainModel
+    public class MainModel: BaseModel
     {
-        public decimal Balance { get; set; } = 0;
-        public long BetCount { get; set; } = 0;
-        public decimal BetProfits { get; set; } = 0;
-        public long  BetWins { get; set; } = 0;
-        public decimal BetWinsPercent { get; set; } = 0;
-        public string AccountName { get; set; } = "name";       
+        private readonly IGetAccountDataService _getAccountDataService;
 
-        public MainModel()
+        private SessionInfo session;
+        private Currencies currency = Currencies.BTC;
+        private decimal balance;
+        private long betCount;
+        private decimal betProfits;
+        private long betWins;
+        private decimal betWinsPercent;
+        private string accountName;        
+
+        public MainModel(IGetAccountDataService getAccountDataService)
         {
+            _getAccountDataService = getAccountDataService;            
         }
 
-        public void InitModel(SessionInfo session, Currencies currency)
+        public SessionInfo Session
         {
-            if (session == null) return;
-            Balance = session[currency].Balance;
-            BetCount = session[currency].BetCount;
-            BetProfits = session[currency].BetPayIn + session[currency].BetPayOut;
-            BetWins = session[currency].BetWinCount;
-            BetWinsPercent = session[currency].BetCount == 0
+            get => session;
+            set
+            {
+                session = value;
+                InitModel();
+                OnPropertyChanged("Session");
+            }
+        }
+        
+        public Currencies Currency
+        {
+            get => currency;
+            set
+            {
+                currency = value;
+                InitModel();
+                OnPropertyChanged("Currency");
+            }
+        }
+        
+        public decimal Balance
+        {
+            get => balance;
+            set
+            {
+                balance = value;
+                OnPropertyChanged("Balance");
+            }
+        }
+        
+        public long BetCount
+        {
+            get=>betCount;
+            set
+            {
+                betCount = value;
+                OnPropertyChanged("BetCount");
+            }
+        }
+        
+        public decimal BetProfits
+        {
+            get=> betProfits;
+            set
+            {
+                betProfits = value;
+                OnPropertyChanged("BetProfits");
+            }
+        }
+        
+        public long  BetWins
+        {
+            get=> betWins;
+            set
+            {
+                betWins = value;
+                OnPropertyChanged("BetWins");
+            }
+        }
+        
+        public decimal BetWinsPercent
+        {
+            get=> betWinsPercent;
+            set
+            {
+                betWinsPercent = value;
+                OnPropertyChanged("BetWinsPercent");
+            }
+        }
+        
+        public string AccountName
+        {
+            get => accountName;
+            set
+            {
+                accountName = value;
+                OnPropertyChanged("AccountName");
+            }
+        } 
+
+        public override void InitModel()
+        {
+            if (Session == null) return;
+            _getAccountDataService.GetAccountData(this);
+            Balance = Session[Currency].Balance;
+            BetCount = Session[Currency].BetCount;
+            BetProfits = Session[Currency].BetPayIn + Session[Currency].BetPayOut;
+            BetWins = Session[Currency].BetWinCount;
+            BetWinsPercent = Session[Currency].BetCount == 0
                 ? 0
-                : session[currency].BetWinCount * 100M / session[currency].BetCount;
-            AccountName = session.Username;
+                : System.Math.Round(Session[Currency].BetWinCount * 100M / Session[Currency].BetCount, 6);
+            AccountName = Session.Username;
         }
+
 
     }
 }

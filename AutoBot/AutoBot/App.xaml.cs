@@ -1,17 +1,22 @@
 ﻿using AutoBot.Views;
 using AutoBot.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using AutoBot.Models;
 using AutoBot.Helpers;
 using System.Collections.ObjectModel;
+using AutoBot.Services;
+using Ninject;
+using AutoBot.Interfaces;
+using AutoBot.Controllers;
+using AutoBot.Betting.Data;
+using AutoBot.Dialogs;
+using AutoBot.Dialogs.LoginDialog;
+using AutoBot.Dialogs.NewAccountDialog;
+using AutoBot.Dialogs.SettingsDialog;
+using AutoBot.Dialogs.StrategyDialog;
 
 namespace AutoBot
+
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -20,24 +25,38 @@ namespace AutoBot
     {
         private void OnStartup(object sender, StartupEventArgs e)
         {
-            MainView view = new MainView();
-            var loginDialog = new LoginDialog();
+            IKernel kernel = new StandardKernel();
 
-            SettingsModel settingsModel = new SettingsModel();
-            var settingsDialog = new SettingsDialog(settingsModel); 
+            kernel.Bind<ILoginService<ResultLoginModel, LoginModel>>().To<LoginService>();
+            kernel.Bind<ILoginService<string, NewAccountModel>>().To<CreateNewAccountService>();
 
-            MainModel mainModel = new MainModel();
-            MainViewModel mainViewModel = new MainViewModel(mainModel, loginDialog, settingsDialog);
-            view.UserGrid.DataContext = mainViewModel;
+            kernel.Bind<ISendSettings>().To<SendSettingsContainer>().InSingletonScope();            
 
-            ObservableCollection<WorkAccountModel> workModel = new ObservableCollection<WorkAccountModel>
-            { new WorkAccountModel() };
-            WorkAccountViewModel workViewModel = new WorkAccountViewModel(workModel);
-            view.WorkAccountGrid.DataContext = workViewModel;
+            kernel.Bind<IBaseDialogService<ResultLoginModel>>().To<LoginDialogService>();
+            kernel.Bind<IBaseDialogService<string>>().To<NewAccountDialogService>();
+            kernel.Bind<IBaseDialogService<ProgrammSettingsModel>>().To<SettingsDialogService>().InSingletonScope();
+            kernel.Bind<IBaseDialogService<PlayerSettingsModel>>().To<StrategyDialogService>();
 
+            kernel.Bind<IGetAccountDataService>().To<GetAccountDataService>();
 
+            kernel.Bind<IWorkAccountController<PlayerSettingsModel>>().To<WorkAccountController>();            
+            kernel.Bind<IBaseBackground<BetResultData, SingleBetData>>().To<BackgroundBettingController>();
+            kernel.Bind<ICreateThreadForPlayer<BetResultData, SingleBetData>>().To<CreateThreadForPlayerService>();
+            kernel.Bind<IDialogService>().To<FileDialogService>();
 
-            view.Show();
+            kernel.Bind<IFileService<PlayerSettingsModel>>().To<BinarySerializeUserSet>();            
+            
+            kernel.Bind<IFileService<ProgrammSettingsModel>>().To<BinarySerializePrgSet>();            
+
+            var appVM = kernel.Get<MainViewModel>();
+            MainView mainView = new MainView();
+            mainView.userGrid.DataContext = appVM;
+
+            var workVM = kernel.Get<WorkAccountViewModel>();
+            mainView.WorkAccountGrid.DataContext = workVM;
+            
+
+            mainView.Show();
         }
     }
 }
