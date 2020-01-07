@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AutoBot.Betting.Services
 {
-    public class SingleBettingService : ISingleBetting<SingleBetData>
+    public class SingleBettingService : IBetting<SingleBetData>
     {  
         public event EventHandler<SingleBetData> OnFinishMoney;
         public SingleBettingService() { }

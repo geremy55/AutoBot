@@ -13,7 +13,7 @@ namespace AutoBot.Models
 {
     public class WorkAccountModel:BaseViewModel
     {
-        private IBaseBackground<BetResultData, SingleBetData> background;
+        private IBaseBackground background;
         private PlayerSettingsModel playerSettings;
         private Currencies currency = Currencies.BTC;
         private SessionInfo session;
@@ -33,7 +33,7 @@ namespace AutoBot.Models
         {
         }
 
-        public IBaseBackground<BetResultData, SingleBetData> Background
+        public IBaseBackground Background
         {
             get => background;
             set

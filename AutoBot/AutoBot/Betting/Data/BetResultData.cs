@@ -11,8 +11,7 @@ namespace AutoBot.Betting.Data
     {
         public int BetCount { get; set; } = 0;
         public decimal Profit { get; set; } = 0;
-        public double Percent { get; set; } = 0;
-        public int BetNumber { get; set; } = 0;
+        public double Percent { get; set; } = 0;        
         public decimal Balance { get; set; } = 0;
         public SessionInfo Session { get; set; } 
     }

@@ -14,6 +14,7 @@ namespace AutoBot.Models
         public string Login { get; set; } = "";
         public string Password { get; set; } = "";
         public string GoogleCode { get; set; } = "";
+
         private string statusText = "";
         public string StatusText
         {

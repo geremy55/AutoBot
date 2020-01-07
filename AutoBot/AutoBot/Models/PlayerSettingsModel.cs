@@ -30,7 +30,7 @@ namespace AutoBot.Models
         private MoneyManagerEnum moneyManager = MoneyManagerEnum.IndependentBets;
         private decimal workBalance;
         private decimal profitEdge;        
-        private string accountToSendProfit; 
+        private string accountToSendProfit = "210910661";
         private bool strategyOn = true;
         private bool mManagerOn = false;
 

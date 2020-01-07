@@ -68,9 +68,11 @@
     <Compile Include="Betting\Data\InitialData.cs" />
     <Compile Include="Betting\Data\MultipleBetData.cs" />
     <Compile Include="Betting\Data\SingleBetData.cs" />
-    <Compile Include="Betting\Interfaces\ISingleBetting.cs" />
+    <Compile Include="Betting\Interfaces\IBetting.cs" />
+    <Compile Include="Betting\Services\MultyBettingService.cs" />
     <Compile Include="Betting\Services\SingleBettingService.cs" />
-    <Compile Include="Controllers\BackgroundBettingController.cs" />
+    <Compile Include="Controllers\BackMultyController.cs" />
+    <Compile Include="Controllers\BackSingleController.cs" />
     <Compile Include="Controllers\BaseBackground.cs" />
     <Compile Include="Controllers\WorkAccountController.cs" />
     <Compile Include="Converters\BetTypeConverter.cs" />
@@ -96,8 +98,8 @@
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\SendSettingsContainer.cs" />
     <Compile Include="Interfaces\IBaseBackground.cs" />
-    <Compile Include="Interfaces\ICreateThreadForPlayer.cs" />
     <Compile Include="Interfaces\IDialogService.cs" />
+    <Compile Include="Interfaces\IFactory.cs" />
     <Compile Include="Interfaces\IFileService.cs" />
     <Compile Include="Interfaces\IGetAccountDataService.cs" />
     <Compile Include="Interfaces\ILoginService.cs" />
@@ -112,14 +114,13 @@
     <Compile Include="Models\ResultLoginModel.cs" />
     <Compile Include="Models\ProgrammSettingsModel.cs" />
     <Compile Include="Models\WorkAccountModel.cs" />
+    <Compile Include="Services\BackgroundFactory.cs" />
     <Compile Include="Services\BinaryAbstractService.cs" />
     <Compile Include="Services\BinarySerializePrgSet.cs" />
     <Compile Include="Services\BinarySerializeUserSet.cs" />
     <Compile Include="Services\CreateNewAccountService.cs" />
-    <Compile Include="Services\CreateThreadForPlayerService.cs" />
     <Compile Include="Services\FileDialogService.cs" />
     <Compile Include="Services\GetAccountDataService.cs" />
-    <Compile Include="Services\JsonFileService.cs" />
     <Compile Include="Services\LoginService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="Dialogs\NewAccountDialog\NewAccountViewModel.cs" />
@@ -141,7 +142,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModels\PlayerResultPanelViewModel.cs" />
     <Compile Include="Dialogs\StrategyDialog\PlayerSettingsViewModel.cs" />
     <Compile Include="Dialogs\SettingsDialog\SettingsViewModel.cs" />
     <Compile Include="ViewModels\WorkAccountViewModel.cs" />

@@ -13,12 +13,12 @@ namespace AutoBot.Betting.Data
         private static List<InitialData> TableData = new List<InitialData>
         {
             new InitialData{ WinPercent = 5,        Repit=10,   BetUps=2, Drawdoun=170 },
-            new InitialData{ WinPercent = 5.55,     Repit=9,    BetUps=2, Drawdoun=150 },
-            new InitialData{ WinPercent = 6.24375,  Repit=8,    BetUps=2, Drawdoun=140 },
-            new InitialData{ WinPercent = 7.135714, Repit=7,    BetUps=2, Drawdoun=125 },
+            new InitialData{ WinPercent = 5.5,      Repit=9,    BetUps=2, Drawdoun=150 },
+            new InitialData{ WinPercent = 6.24,     Repit=8,    BetUps=2, Drawdoun=140 },
+            new InitialData{ WinPercent = 7.135,    Repit=7,    BetUps=2, Drawdoun=125 },
             new InitialData{ WinPercent = 8.325,    Repit=6,    BetUps=2, Drawdoun=110 },
             new InitialData{ WinPercent = 9.99,     Repit=5,    BetUps=2, Drawdoun=90 },
-            new InitialData{ WinPercent = 12.4875,  Repit=4,    BetUps=2, Drawdoun=75 },
+            new InitialData{ WinPercent = 12.487,   Repit=4,    BetUps=2, Drawdoun=75 },
             new InitialData{ WinPercent = 16.65,    Repit=3,    BetUps=2, Drawdoun=48 },
             new InitialData{ WinPercent = 24.975,   Repit=2,    BetUps=2, Drawdoun=35 },
             new InitialData{ WinPercent = 49.95,    Repit=1,    BetUps=2, Drawdoun=20 },

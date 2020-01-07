@@ -13,17 +13,17 @@ using System.Threading.Tasks;
 
 namespace AutoBot.Controllers
 {
-    public class BackgroundBettingController : BaseBackground, IBaseBackground<BetResultData, SingleBetData>
+    public class BackSingleController : BaseBackground, IBaseBackground
     {
         public event EventHandler<BetResultData> OnSendResult;
-        public event EventHandler<SingleBetData> OnFinishMoney;
+        public event EventHandler<string> OnFinishMoney;
         public event EventHandler<SessionInfo> OnCompletBet;
 
         private PlayerSettingsModel _settings;
-        private ISingleBetting<SingleBetData> _singleBetting;
+        private IBetting<SingleBetData> _singleBetting;
         private SingleBetData _betData;
 
-        public BackgroundBettingController(ISingleBetting<SingleBetData> singleBetting, PlayerSettingsModel settings) : base()
+        public BackSingleController(IBetting<SingleBetData> singleBetting, PlayerSettingsModel settings) : base()
         {
             _singleBetting = singleBetting;
             _singleBetting.OnFinishMoney += _singleBetting_OnFinishMoney;
@@ -74,7 +74,7 @@ namespace AutoBot.Controllers
         {
             if (e.Cancelled)
             {
-                OnCompletBet?.Invoke(this, _betData.Session);
+                
             }
             if (e.Error != null)
             {
@@ -82,7 +82,7 @@ namespace AutoBot.Controllers
             }
             else
             {
-               
+                OnCompletBet?.Invoke(this, _betData.Session);
             }
         }
 
@@ -95,22 +95,23 @@ namespace AutoBot.Controllers
                 {
                     case Currencies.BTC:
                         {
-                            minProfitToWitdraw = 0.0005m;
+                            
+                            minProfitToWitdraw = Math.Max(data.Balance - bet.ProfitEdge, 0.0005m);
                         }
                         break;
                     case Currencies.Doge:
                         {
-                            minProfitToWitdraw = 2m;
+                            minProfitToWitdraw = Math.Max(data.Balance - bet.ProfitEdge, 2m);
                         }
                         break;
                     case Currencies.LTC:
                         {
-                            minProfitToWitdraw = 0.002m;
+                            minProfitToWitdraw = Math.Max(data.Balance - bet.ProfitEdge, 0.002m);
                         }
                         break;
                     case Currencies.ETH:
                         {
-                            minProfitToWitdraw = 0.002m;
+                            minProfitToWitdraw = Math.Max(data.Balance - bet.ProfitEdge, 0.002m);
                         }
                         break;
                 }
@@ -123,7 +124,7 @@ namespace AutoBot.Controllers
 
         private void _singleBetting_OnFinishMoney(object sender, SingleBetData e)
         {
-            OnFinishMoney?.Invoke(this, e);
+            OnFinishMoney?.Invoke(this, e.Session.Username);
         }        
     }
 }

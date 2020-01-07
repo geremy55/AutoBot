@@ -1,4 +1,7 @@
 ﻿using AutoBot.Betting.Data;
+using AutoBot.Betting.Services;
+using AutoBot.Controllers;
+using AutoBot.Enums;
 using AutoBot.Helpers;
 using AutoBot.Interfaces;
 using AutoBot.Models;
@@ -14,8 +17,8 @@ namespace AutoBot.ViewModels
 {
     public class WorkAccountViewModel:BaseViewModel
     {
-        private readonly IWorkAccountController<PlayerSettingsModel> _workAccountController;
-        private readonly ICreateThreadForPlayer<BetResultData, SingleBetData> _threadForPlayer;
+        private readonly IWorkAccountController<PlayerSettingsModel> _workAccountController;        
+        private IFactory backgroundFactory;
 
         private WorkAccountModel selectedModel;
         public WorkAccountModel SelectedModel
@@ -40,12 +43,12 @@ namespace AutoBot.ViewModels
         }
 
         public WorkAccountViewModel(ObservableCollection<WorkAccountModel> _model, IWorkAccountController<PlayerSettingsModel> workAccountController,
-            ICreateThreadForPlayer<BetResultData, SingleBetData> threadForPlayer)
+            IFactory backgroundFactory)
         {
             Model = _model;
             _workAccountController = workAccountController;
             _workAccountController.OnAddAccount += _workAccountController_OnAddAccount;
-            _threadForPlayer = threadForPlayer;
+            this.backgroundFactory = backgroundFactory;
         }
 
         private void _workAccountController_OnAddAccount(object sender, PlayerSettingsModel e)
@@ -135,7 +138,7 @@ namespace AutoBot.ViewModels
                       selItem.ButtonOn = !selItem.ButtonOn;
                       if (selItem.ButtonOn == false)
                       {
-                          var background = _threadForPlayer.Create(selItem.PlayerSettings);
+                          var background = backgroundFactory.Create(selItem.PlayerSettings);                          
                           background.OnSendResult += Background_OnSendResult;
                           background.OnFinishMoney += Background_OnFinishMoney;
                           background.OnCompletBet += Background_OnCompletBet;
@@ -198,9 +201,9 @@ namespace AutoBot.ViewModels
             });
         }
 
-        private void Background_OnFinishMoney(object sender, SingleBetData e)
+        private void Background_OnFinishMoney(object sender, string e)
         {
-            var item = Model.FirstOrDefault(i => i.UserName == e.Session.Username);
+            var item = Model.FirstOrDefault(i => i.UserName == e);
             if (item == null) return;
             Application.Current.Dispatcher.Invoke(() =>
             {

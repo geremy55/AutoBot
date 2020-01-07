@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AutoBot.Betting.Interfaces
 {
-    public interface ISingleBetting<T>
+    public interface IBetting<T>
     {
         event EventHandler<T> OnFinishMoney;
         BetResultData StartBetting(T data);

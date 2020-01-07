@@ -49,11 +49,8 @@
                                 <Button Name="bt_Go" Margin="5,2,5,2"  Command="{Binding Path=DataContext.StartCommand,       
                                      RelativeSource= {RelativeSource FindAncestor,
                                       AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding}" 
-                                      Style="{StaticResource ButtonTemplate}"                                            
-                                       >
-                                    <TextBlock Text="{Binding BtnGo}" Foreground="{Binding BtnColor}">
-
-                                    </TextBlock>
+                                      Style="{StaticResource ButtonTemplate}">
+                                    <TextBlock Text="{Binding BtnGo}" Foreground="{Binding BtnColor}"/>                                   
                                 </Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

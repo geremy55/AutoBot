@@ -1,4 +1,5 @@
-﻿using Dice.Client.Web;
+﻿using AutoBot.Betting.Data;
+using Dice.Client.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace AutoBot.Interfaces
 {
-    public interface IBaseBackground<T, S>
+    public interface IBaseBackground
     {
-        event EventHandler<T> OnSendResult;
-        event EventHandler<S> OnFinishMoney;
+        event EventHandler<BetResultData> OnSendResult;
+        event EventHandler<string> OnFinishMoney;
         event EventHandler<SessionInfo> OnCompletBet;
 
         void Start();

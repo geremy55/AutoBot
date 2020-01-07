@@ -14,6 +14,8 @@ using AutoBot.Dialogs.LoginDialog;
 using AutoBot.Dialogs.NewAccountDialog;
 using AutoBot.Dialogs.SettingsDialog;
 using AutoBot.Dialogs.StrategyDialog;
+using AutoBot.Betting.Interfaces;
+using AutoBot.Betting.Services;
 
 namespace AutoBot
 
@@ -39,22 +41,27 @@ namespace AutoBot
 
             kernel.Bind<IGetAccountDataService>().To<GetAccountDataService>();
 
-            kernel.Bind<IWorkAccountController<PlayerSettingsModel>>().To<WorkAccountController>();            
-            kernel.Bind<IBaseBackground<BetResultData, SingleBetData>>().To<BackgroundBettingController>();
-            kernel.Bind<ICreateThreadForPlayer<BetResultData, SingleBetData>>().To<CreateThreadForPlayerService>();
+            kernel.Bind<IWorkAccountController<PlayerSettingsModel>>().To<WorkAccountController>(); 
+            
+            kernel.Bind<IBaseBackground>().To<BackSingleController>();
+           // kernel.Bind<IBaseBackground>().To<BackMultyController>();           
+
             kernel.Bind<IDialogService>().To<FileDialogService>();
 
             kernel.Bind<IFileService<PlayerSettingsModel>>().To<BinarySerializeUserSet>();            
             
-            kernel.Bind<IFileService<ProgrammSettingsModel>>().To<BinarySerializePrgSet>();            
+            kernel.Bind<IFileService<ProgrammSettingsModel>>().To<BinarySerializePrgSet>();
+
+            kernel.Bind<IBetting<MultipleBetData>>().To<MultyBettingService>();
+            kernel.Bind<IBetting<SingleBetData>>().To<SingleBettingService>();
+            kernel.Bind<IFactory>().To<BackgroundFactory>();
 
             var appVM = kernel.Get<MainViewModel>();
             MainView mainView = new MainView();
             mainView.userGrid.DataContext = appVM;
 
             var workVM = kernel.Get<WorkAccountViewModel>();
-            mainView.WorkAccountGrid.DataContext = workVM;
-            
+            mainView.WorkAccountGrid.DataContext = workVM;            
 
             mainView.Show();
         }

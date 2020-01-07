@@ -16,6 +16,7 @@ namespace AutoBot.Dialogs.StrategyDialog
         {
             dialogVM = playerSettingsViewModel;
             dialogVM.OnPressOK += DialogVM_OnPressOK;
+            
             _sendSettings = sendSettings;
         }
        
@@ -37,9 +38,15 @@ namespace AutoBot.Dialogs.StrategyDialog
 
         private void DialogVM_OnPressOK(object sender, PlayerSettingsModel e)
         {
-            if (e == null) return;
-            ReturnedModel = e;
-            ReturnedModel.AccountToSendProfit = _sendSettings.GetData().WithdrawAdress;
+            if (e != null)
+            {
+                ReturnedModel = e;
+                if(!string.IsNullOrEmpty(_sendSettings?.GetData()?.WithdrawAdress))
+                {
+                    ReturnedModel.AccountToSendProfit = _sendSettings?.GetData()?.WithdrawAdress;
+                }                
+            }         
+            
             view.DialogResult = e != null ? true : false;
         }
     }
